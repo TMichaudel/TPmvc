@@ -1,11 +1,11 @@
-package Controleur;
+package Vue;
 
 
 // package logo;
 
-import Vue.FeuilleDessin;
+import Controleur.FeuilleDessin;
 import Modele.Tortue;
-import Vue.FeuilleDessin;
+import Controleur.FeuilleDessin;
 import java.awt.*;
 
 import javax.swing.*;

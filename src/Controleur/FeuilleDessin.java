@@ -1,4 +1,4 @@
-package Vue;
+package Controleur;
 
 // package logo;
 
