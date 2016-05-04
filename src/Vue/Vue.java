@@ -1,12 +1,8 @@
 package Vue;
 
-
 // package logo;
-
 import Controleur.Controleur;
-import Controleur.FeuilleDessin;
 import Modele.Tortue;
-import Controleur.FeuilleDessin;
 import java.awt.*;
 
 import javax.swing.*;
@@ -15,191 +11,168 @@ import java.awt.event.*;
 import java.util.*;
 import java.io.*;
 
-
 /**
  *
  * @author mathieu
  */
-public class Vue extends JFrame{
-    public static final Dimension VGAP = new Dimension(1,5);
-	public static final Dimension HGAP = new Dimension(5,1);
+public class Vue extends JFrame {
 
-        private Controleur control;
-	private FeuilleDessin feuille;
-	private Tortue courante;
-	private JTextField inputValue;
+    public static final Dimension VGAP = new Dimension(1, 5);
+    public static final Dimension HGAP = new Dimension(5, 1);
 
+    private Controleur control;
+    private VueFeuilleDessin feuille;
+    private Tortue courante;
+    private JTextField inputValue;
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		   SwingUtilities.invokeLater(new Runnable(){
-				public void run(){
+    private void quitter() {
+        System.exit(0);
+    }
 
-					Vue fenetre = new Vue();
-					fenetre.setVisible(true);
-				}
-			});
-			
-		}
-	
-	private void quitter() {
-		System.exit(0);
-	}
+    public Vue(Controleur c) {
+        super("un logo tout simple");
+        this.control = c;
+        logoInit();
 
-	public Vue() {
-		super("un logo tout simple");
-		logoInit();
-		
-		addWindowListener(new WindowAdapter() {
-		    @Override
-		    public void windowClosing(WindowEvent arg0) {
-		        super.windowClosing(arg0);
-		        System.exit(0);
-		    }
-		});
-	}
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent arg0) {
+                super.windowClosing(arg0);
+                System.exit(0);
+            }
+        });
+    }
 
-	public void logoInit() {
-		getContentPane().setLayout(new BorderLayout(10,10));
+    public void logoInit() {
+        getContentPane().setLayout(new BorderLayout(10, 10));
 
-		// Boutons
-		JToolBar toolBar = new JToolBar();
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(toolBar);
+        // Boutons
+        JToolBar toolBar = new JToolBar();
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(toolBar);
 
-		getContentPane().add(buttonPanel,"North");
+        getContentPane().add(buttonPanel, "North");
 
-		addButton(toolBar,"Effacer","Nouveau dessin","/icons/index.png");
-		
-		toolBar.add(Box.createRigidArea(HGAP));
-		inputValue=new JTextField("45",5);
-		toolBar.add(inputValue);
-		addButton(toolBar, "Avancer", "Avancer 50", null);
-		addButton(toolBar, "Droite", "Droite 45", null);
-		addButton(toolBar, "Gauche", "Gauche 45", null);
-		addButton(toolBar, "Lever", "Lever Crayon", null);
-		addButton(toolBar, "Baisser", "Baisser Crayon", null);
+        addButton(toolBar, "Effacer", "Nouveau dessin", "/icons/index.png");
 
-		String[] colorStrings = {"noir", "bleu", "cyan","gris fonce","rouge",
-								 "vert", "gris clair", "magenta", "orange",
-								 "gris", "rose", "jaune"};
+        toolBar.add(Box.createRigidArea(HGAP));
+        inputValue = new JTextField("45", 5);
+        toolBar.add(inputValue);
+        addButton(toolBar, "Avancer", "Avancer 50", null);
+        addButton(toolBar, "Droite", "Droite 45", null);
+        addButton(toolBar, "Gauche", "Gauche 45", null);
+        addButton(toolBar, "Lever", "Lever Crayon", null);
+        addButton(toolBar, "Baisser", "Baisser Crayon", null);
 
-		// Create the combo box
-		toolBar.add(Box.createRigidArea(HGAP));
-		JLabel colorLabel = new JLabel("   Couleur: ");
-		toolBar.add(colorLabel);
-		JComboBox colorList = new JComboBox(colorStrings);
-		toolBar.add(colorList);
+        String[] colorStrings = {"noir", "bleu", "cyan", "gris fonce", "rouge",
+            "vert", "gris clair", "magenta", "orange",
+            "gris", "rose", "jaune"};
 
-		colorList.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JComboBox cb = (JComboBox)e.getSource();
-				int n = cb.getSelectedIndex();
-				courante.setColor(n);
-			}
-		});
+        // Create the combo box
+        toolBar.add(Box.createRigidArea(HGAP));
+        JLabel colorLabel = new JLabel("   Couleur: ");
+        toolBar.add(colorLabel);
+        JComboBox colorList = new JComboBox(colorStrings);
+        toolBar.add(colorList);
 
+        colorList.addActionListener(control);
 
-		// Menus
-		JMenuBar menubar=new JMenuBar();
-		setJMenuBar(menubar);	// on installe le menu bar
-		JMenu menuFile=new JMenu("File"); // on installe le premier menu
-		menubar.add(menuFile);
+        // Menus
+        JMenuBar menubar = new JMenuBar();
+        setJMenuBar(menubar);	// on installe le menu bar
+        JMenu menuFile = new JMenu("File"); // on installe le premier menu
+        menubar.add(menuFile);
 
-		addMenuItem(menuFile, "Effacer", "Effacer", KeyEvent.VK_N);
-		addMenuItem(menuFile, "Quitter", "Quitter", KeyEvent.VK_Q);
+        addMenuItem(menuFile, "Effacer", "Effacer", KeyEvent.VK_N);
+        addMenuItem(menuFile, "Quitter", "Quitter", KeyEvent.VK_Q);
 
-		JMenu menuCommandes=new JMenu("Commandes"); // on installe le premier menu
-		menubar.add(menuCommandes);
-		addMenuItem(menuCommandes, "Avancer", "Avancer", -1);
-		addMenuItem(menuCommandes, "Droite", "Droite", -1);
-		addMenuItem(menuCommandes, "Gauche", "Gauche", -1);
-		addMenuItem(menuCommandes, "Lever Crayon", "Lever", -1);
-		addMenuItem(menuCommandes, "Baisser Crayon", "Baisser", -1);
+        JMenu menuCommandes = new JMenu("Commandes"); // on installe le premier menu
+        menubar.add(menuCommandes);
+        addMenuItem(menuCommandes, "Avancer", "Avancer", -1);
+        addMenuItem(menuCommandes, "Droite", "Droite", -1);
+        addMenuItem(menuCommandes, "Gauche", "Gauche", -1);
+        addMenuItem(menuCommandes, "Lever Crayon", "Lever", -1);
+        addMenuItem(menuCommandes, "Baisser Crayon", "Baisser", -1);
 
-		JMenu menuHelp=new JMenu("Aide"); // on installe le premier menu
-		menubar.add(menuHelp);
-		addMenuItem(menuHelp, "Aide", "Help", -1);
-		addMenuItem(menuHelp, "A propos", "About", -1);
+        JMenu menuHelp = new JMenu("Aide"); // on installe le premier menu
+        menubar.add(menuHelp);
+        addMenuItem(menuHelp, "Aide", "Help", -1);
+        addMenuItem(menuHelp, "A propos", "About", -1);
 
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		// les boutons du bas
-		JPanel p2 = new JPanel(new GridLayout());
-		JButton b20 = new JButton("Proc1");
-		p2.add(b20);
-		b20.addActionListener(control);
-		JButton b21 = new JButton("Proc2");
-		p2.add(b21);
-		b21.addActionListener(control);
-		JButton b22 = new JButton("Proc3");
-		p2.add(b22);
-		b22.addActionListener(control);
+        // les boutons du bas
+        JPanel p2 = new JPanel(new GridLayout());
+        JButton b20 = new JButton("Proc1");
+        p2.add(b20);
+        b20.addActionListener(control);
+        JButton b21 = new JButton("Proc2");
+        p2.add(b21);
+        b21.addActionListener(control);
+        JButton b22 = new JButton("Proc3");
+        p2.add(b22);
+        b22.addActionListener(control);
 
-		getContentPane().add(p2,"South");
+        getContentPane().add(p2, "South");
 
-		feuille = new FeuilleDessin(); //500, 400);
-		feuille.setBackground(Color.white);
-		feuille.setSize(new Dimension(600,400));
-		feuille.setPreferredSize(new Dimension(600,400));
-			
-		getContentPane().add(feuille,"Center");
-		
-		// Creation de la tortue
-		Tortue tortue = new Tortue();
-		
-		// Deplacement de la tortue au centre de la feuille
-		tortue.setPosition(500/2, 400/2); 		
-		
-		courante = tortue;
-		feuille.addTortue(tortue);
+        feuille = new VueFeuilleDessin(); //500, 400);
+        feuille.setBackground(Color.white);
+        feuille.setSize(new Dimension(600, 400));
+        feuille.setPreferredSize(new Dimension(600, 400));
 
-		pack();
-		setVisible(true);
-	}
+        getContentPane().add(feuille, "Center");
 
-	public String getInputValue(){
-		String s = inputValue.getText();
-		return(s);
-	}
+        // Creation de la tortue
+        Tortue tortue = new Tortue();
 
-	//utilitaires pour installer des boutons et des menus
-	public void addButton(JComponent p, String name, String tooltiptext, String imageName) {
-		JButton b;
-		if ((imageName == null) || (imageName.equals(""))) {
-			b = (JButton)p.add(new JButton(name));
-		}
-		else {
-			java.net.URL u = this.getClass().getResource(imageName);
-			if (u != null) {
-				ImageIcon im = new ImageIcon (u);
-				b = (JButton) p.add(new JButton(im));
-			}
-			else
-				b = (JButton) p.add(new JButton(name));
-			b.setActionCommand(name);
-		}
+        // Deplacement de la tortue au centre de la feuille
+        tortue.setPosition(500 / 2, 400 / 2);
+        courante = tortue;
+        feuille = new VueFeuilleDessin();
+        feuille.addTortue(tortue);
+        pack();
+    }
 
-		b.setToolTipText(tooltiptext);
-		b.setBorder(BorderFactory.createRaisedBevelBorder());
-		b.setMargin(new Insets(0,0,0,0));
-		b.addActionListener(control);
-	}
+    public String getInputValue() {
+        String s = inputValue.getText();
+        return (s);
+    }
 
-	public void addMenuItem(JMenu m, String label, String command, int key) {
-		JMenuItem menuItem;
-		menuItem = new JMenuItem(label);
-		m.add(menuItem);
+    //utilitaires pour installer des boutons et des menus
+    public void addButton(JComponent p, String name, String tooltiptext, String imageName) {
+        JButton b;
+        if ((imageName == null) || (imageName.equals(""))) {
+            b = (JButton) p.add(new JButton(name));
+        } else {
+            java.net.URL u = this.getClass().getResource(imageName);
+            if (u != null) {
+                ImageIcon im = new ImageIcon(u);
+                b = (JButton) p.add(new JButton(im));
+            } else {
+                b = (JButton) p.add(new JButton(name));
+            }
+            b.setActionCommand(name);
+        }
 
-		menuItem.setActionCommand(command);
-		menuItem.addActionListener(control);
-		if (key > 0) {
-			if (key != KeyEvent.VK_DELETE)
-				menuItem.setAccelerator(KeyStroke.getKeyStroke(key, Event.CTRL_MASK, false));
-			else
-				menuItem.setAccelerator(KeyStroke.getKeyStroke(key, 0, false));
-		}
-	}
+        b.setToolTipText(tooltiptext);
+        b.setBorder(BorderFactory.createRaisedBevelBorder());
+        b.setMargin(new Insets(0, 0, 0, 0));
+        b.addActionListener(control);
+    }
+
+    public void addMenuItem(JMenu m, String label, String command, int key) {
+        JMenuItem menuItem;
+        menuItem = new JMenuItem(label);
+        m.add(menuItem);
+
+        menuItem.setActionCommand(command);
+        menuItem.addActionListener(control);
+        if (key > 0) {
+            if (key != KeyEvent.VK_DELETE) {
+                menuItem.setAccelerator(KeyStroke.getKeyStroke(key, Event.CTRL_MASK, false));
+            } else {
+                menuItem.setAccelerator(KeyStroke.getKeyStroke(key, 0, false));
+            }
+        }
+    }
 }
