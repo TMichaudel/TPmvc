@@ -1,8 +1,10 @@
-package logoInit;
+package Controlleur;
 
 
 // package logo;
 
+import Vue.FeuilleDessin;
+import Modele.Tortue;
 import java.awt.*;
 
 import javax.swing.*;

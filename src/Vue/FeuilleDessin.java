@@ -1,7 +1,8 @@
-package logoInit;
+package Vue;
 
 // package logo;
 
+import Modele.Tortue;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
