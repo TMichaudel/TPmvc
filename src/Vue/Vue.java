@@ -42,7 +42,7 @@ public class Vue extends JFrame implements Observer{
         return feuille;
     }
     public void initFeuille(){
-        feuille = new VueFeuilleDessin(); //500, 400);
+        feuille = new VueFeuilleDessin();
         feuille.setBackground(Color.white);
         feuille.setSize(new Dimension(600, 400));
         feuille.setPreferredSize(new Dimension(600, 400));
@@ -187,7 +187,6 @@ public class Vue extends JFrame implements Observer{
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("bb");
         feuille.repaint();
     }
 }

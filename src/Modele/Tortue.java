@@ -144,10 +144,6 @@ public class Tortue extends Observable {
 
             listSegments.add(seg);
         }
-
-        /*x = newX;
-        y = newY;
-        */
         setPosition(newX, newY);
     }
 

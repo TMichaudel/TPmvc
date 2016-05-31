@@ -12,6 +12,7 @@ import Vue.VueTortue;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JComboBox;
 import javax.swing.SwingUtilities;
 
@@ -21,6 +22,7 @@ import javax.swing.SwingUtilities;
  */
 public class Controleur implements ActionListener {
 
+    private ArrayList<Tortue> tortues;
     private Tortue courante;
     private Vue vue;
 
@@ -44,7 +46,6 @@ public class Controleur implements ActionListener {
 
             // actions des boutons du haut
             if (c.equals("Avancer")) {
-                System.out.println("command avancer");
                 try {
                     int v = Integer.parseInt(vue.getInputValue());
                     courante.avancer(v);
