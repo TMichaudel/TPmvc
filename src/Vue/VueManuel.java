@@ -1,7 +1,7 @@
 package Vue;
 
 // package logo;
-import Controleur.Controleur;
+import Controleur.ControleurManuel;
 import Modele.Tortue;
 import java.awt.*;
 
@@ -15,12 +15,12 @@ import java.io.*;
  *
  * @author mathieu
  */
-public class Vue extends JFrame implements Observer{
+public class VueManuel extends JFrame implements Observer{
 
     public static final Dimension VGAP = new Dimension(1, 5);
     public static final Dimension HGAP = new Dimension(5, 1);
 
-    private Controleur control;
+    private ControleurManuel control;
     private VueFeuilleDessin feuille;
 
     private JTextField inputValue;
@@ -28,7 +28,7 @@ public class Vue extends JFrame implements Observer{
     	public static void main(String[] args) {
 		   SwingUtilities.invokeLater(new Runnable(){
 				public void run(){
-                                        Vue fenetre = new Vue();
+                                        VueManuel fenetre = new VueManuel();
 					fenetre.setVisible(true);
 				}
 			});
@@ -48,10 +48,10 @@ public class Vue extends JFrame implements Observer{
         feuille.setPreferredSize(new Dimension(600, 400));
     }
     
-    public Vue() {
+    public VueManuel() {
         super("un logo tout simple");
         initFeuille();
-        this.control = new Controleur(this);
+        this.control = new ControleurManuel(this);
 
         logoInit();
 

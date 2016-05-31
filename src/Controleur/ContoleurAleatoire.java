@@ -10,6 +10,6 @@ package Controleur;
  *
  * @author Thibaud
  */
-public class Controleur {
+public class ContoleurAleatoire {
     
 }
