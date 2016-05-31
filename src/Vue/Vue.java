@@ -15,23 +15,44 @@ import java.io.*;
  *
  * @author mathieu
  */
-public class Vue extends JFrame {
+public class Vue extends JFrame implements Observer{
 
     public static final Dimension VGAP = new Dimension(1, 5);
     public static final Dimension HGAP = new Dimension(5, 1);
 
     private Controleur control;
     private VueFeuilleDessin feuille;
-    private Tortue courante;
-    private JTextField inputValue;
 
+    private JTextField inputValue;
+    
+    	public static void main(String[] args) {
+		   SwingUtilities.invokeLater(new Runnable(){
+				public void run(){
+                                        Vue fenetre = new Vue();
+					fenetre.setVisible(true);
+				}
+			});
+		}
+        
     private void quitter() {
         System.exit(0);
     }
 
-    public Vue(Controleur c) {
+    public VueFeuilleDessin getFeuille() {
+        return feuille;
+    }
+    public void initFeuille(){
+        feuille = new VueFeuilleDessin(); //500, 400);
+        feuille.setBackground(Color.white);
+        feuille.setSize(new Dimension(600, 400));
+        feuille.setPreferredSize(new Dimension(600, 400));
+    }
+    
+    public Vue() {
         super("un logo tout simple");
-        this.control = c;
+        initFeuille();
+        this.control = new Controleur(this);
+
         logoInit();
 
         addWindowListener(new WindowAdapter() {
@@ -115,22 +136,10 @@ public class Vue extends JFrame {
 
         getContentPane().add(p2, "South");
 
-        feuille = new VueFeuilleDessin(); //500, 400);
-        feuille.setBackground(Color.white);
-        feuille.setSize(new Dimension(600, 400));
-        feuille.setPreferredSize(new Dimension(600, 400));
-
         getContentPane().add(feuille, "Center");
 
-        // Creation de la tortue
-        Tortue tortue = new Tortue();
-
-        // Deplacement de la tortue au centre de la feuille
-        tortue.setPosition(500 / 2, 400 / 2);
-        courante = tortue;
-        feuille = new VueFeuilleDessin();
-        feuille.addTortue(tortue);
         pack();
+        setVisible(true);
     }
 
     public String getInputValue() {
@@ -174,5 +183,11 @@ public class Vue extends JFrame {
                 menuItem.setAccelerator(KeyStroke.getKeyStroke(key, 0, false));
             }
         }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("bb");
+        feuille.repaint();
     }
 }

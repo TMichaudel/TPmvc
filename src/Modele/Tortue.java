@@ -21,12 +21,11 @@ import java.io.*;
  *
  *************************************************************************
  */
-public class Tortue {
+public class Tortue extends Observable {
 
     // Rapport radians/degres (pour la conversion)
     protected static final double ratioDegRad = 0.0174533;
     protected ArrayList<Segment> listSegments; // Trace de la tortue
-
     protected int x, y;
     protected int dir;
     protected boolean crayon;
@@ -34,6 +33,8 @@ public class Tortue {
 
     public void setColor(int n) {
         coul = n;
+        setChanged();
+        notifyObservers();
     }
 
     public int getColor() {
@@ -74,17 +75,27 @@ public class Tortue {
     }
 
     public void reset() {
-        x = 0;
-        y = 0;
+        x = 250;
+        y = 250;
         dir = -90;
         coul = 0;
         crayon = true;
         listSegments.clear();
+        setChanged();
+        notifyObservers();
     }
 
     public void setPosition(int newX, int newY) {
         x = newX;
         y = newY;
+        setChanged();
+        notifyObservers();
+    }
+
+    public void setDirection(int dir) {
+        this.dir = dir;
+        setChanged();
+        notifyObservers();
     }
 
     protected Color decodeColor(int c) {
@@ -134,28 +145,36 @@ public class Tortue {
             listSegments.add(seg);
         }
 
-        x = newX;
+        /*x = newX;
         y = newY;
+        */
+        setPosition(newX, newY);
     }
 
     public void droite(int ang) {
-        dir = (dir + ang) % 360;
+        setDirection((dir + ang) % 360);
     }
 
     public void gauche(int ang) {
-        dir = (dir - ang) % 360;
+        setDirection((dir - ang) % 360);
     }
 
     public void baisserCrayon() {
         crayon = true;
+        setChanged();
+        notifyObservers();
     }
 
     public void leverCrayon() {
         crayon = false;
+        setChanged();
+        notifyObservers();
     }
 
     public void couleur(int n) {
         coul = n % 12;
+        setChanged();
+        notifyObservers();
     }
 
     public void couleurSuivante() {

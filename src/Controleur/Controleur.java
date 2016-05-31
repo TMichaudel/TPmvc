@@ -5,9 +5,10 @@
  */
 package Controleur;
 
-import Vue.VueFeuilleDessin;
 import Modele.Tortue;
 import Vue.Vue;
+import Vue.VueFeuilleDessin;
+import Vue.VueTortue;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,25 +21,15 @@ import javax.swing.SwingUtilities;
  */
 public class Controleur implements ActionListener {
 
-    private VueFeuilleDessin feuille;
     private Tortue courante;
     private Vue vue;
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                Controleur control = new Controleur();
-            }
-        });
 
-    }
-
-    public Controleur() {
-        vue = new Vue(this);
-        vue.setVisible(true);
+    public Controleur(Vue vue) {
+        this.vue = vue;
+        this.courante=new Tortue();
+        this.vue.getFeuille().addTortue(new VueTortue(courante));
+        this.courante.addObserver(this.vue);
     }
 
     @Override
@@ -91,8 +82,6 @@ public class Controleur implements ActionListener {
             } else if (c.equals("Quitter")) {
                 quitter();
             }
-
-            feuille.repaint();
         }
     }
 
@@ -113,11 +102,11 @@ public class Controleur implements ActionListener {
 
     // efface tout et reinitialise la feuille
     public void effacer() {
-        feuille.reset();
-        feuille.repaint();
+        this.vue.getFeuille().reset();
+        this.vue.getFeuille().repaint();
 
         // Replace la tortue au centre
-        Dimension size = feuille.getSize();
+        Dimension size = this.vue.getFeuille().getSize();
         courante.setPosition(size.width / 2, size.height / 2);
     }
 
