@@ -26,7 +26,7 @@ import javax.swing.SwingUtilities;
  *
  * @author mathieu
  */
-public class Vue extends JFrame implements Observer{
+public class Vue extends JFrame {
 
     public static final Dimension VGAP = new Dimension(1, 5);
     public static final Dimension HGAP = new Dimension(5, 1);
@@ -34,13 +34,13 @@ public class Vue extends JFrame implements Observer{
     private Controleur control;
     
     public static void main(String[] args) {
-		   SwingUtilities.invokeLater(new Runnable(){
-				public void run(){
+		  // SwingUtilities.invokeLater(new Runnable(){
+		//		public void run(){
                                         Vue fenetre = new Vue();
 					fenetre.setVisible(true);
 				}
-			});
-		}
+			//});
+		//}
     
     private void quitter() {
         System.exit(0);
@@ -96,10 +96,4 @@ public class Vue extends JFrame implements Observer{
         b.setMargin(new Insets(0, 0, 0, 0));
         b.addActionListener(control);
     }
-    
-    @Override
-    public void update(Observable o, Object o1) {
-        
-    }
-    
 }
