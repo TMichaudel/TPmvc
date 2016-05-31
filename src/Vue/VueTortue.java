@@ -68,7 +68,6 @@ public class VueTortue {
         arrow.addPoint(p2.x, p2.y);
         graph.setColor(Color.green);
         graph.fillPolygon(arrow);
-        System.out.println("3d");
         
     }
 }

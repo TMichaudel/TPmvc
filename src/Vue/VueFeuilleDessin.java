@@ -22,7 +22,7 @@ public class VueFeuilleDessin extends JPanel {
     private ArrayList<VueTortue> tortues; // la liste des tortues enregistrees
 
     public VueFeuilleDessin() {
-        tortues = new ArrayList<VueTortue>();
+        tortues = new ArrayList<>();
     }
 
     public void addTortue(VueTortue o) {
@@ -37,7 +37,6 @@ public class VueFeuilleDessin extends JPanel {
     }
 
     public void paintComponent(Graphics g) {
-        System.out.println("dd");
         super.paintComponent(g);
 
         Color c = g.getColor();
