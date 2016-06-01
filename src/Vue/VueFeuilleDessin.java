@@ -30,8 +30,7 @@ public class VueFeuilleDessin extends JPanel {
     }
 
     public void reset() {
-        for (Iterator it = tortues.iterator(); it.hasNext();) {
-            Tortue t = (Tortue) it.next();
+        for (VueTortue t : tortues) {
             t.reset();
         }
     }
