@@ -92,9 +92,10 @@ public class ControleurManuel implements KeyListener, ActionListener{
     public void avancer(int v){
         int posX = courante.getPosX();
         int posY = courante.getPosY();
+        int dir = courante.getDir();
         Dimension size = this.vue.getFeuille().getSize();
-        int newX = (int) Math.round(posX + v );
-        int newY = (int) Math.round(posY + v );
+        int newX = (int) Math.round(posX + v * Math.cos(dir));
+        int newY = (int) Math.round(posY + v * Math.sin(dir));
         if (newX > 0 && newY > 0 && newX < size.width && newY < size.height){
             courante.avancer(v);
         }
