@@ -46,13 +46,14 @@ public class VueManuel extends JFrame implements Observer{
         feuille.setBackground(Color.white);
         feuille.setSize(new Dimension(600, 400));
         feuille.setPreferredSize(new Dimension(600, 400));
+        feuille.setFocusable(true);
     }
     
     public VueManuel() {
         super("un logo tout simple");
         initFeuille();
         this.control = new ControleurManuel(this);
-
+        feuille.addKeyListener(control);
         logoInit();
 
         addWindowListener(new WindowAdapter() {
@@ -66,7 +67,6 @@ public class VueManuel extends JFrame implements Observer{
 
     public void logoInit() {
         getContentPane().setLayout(new BorderLayout(10, 10));
-
         // Boutons
         JToolBar toolBar = new JToolBar();
         JPanel buttonPanel = new JPanel();
