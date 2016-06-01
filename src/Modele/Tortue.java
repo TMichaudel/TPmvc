@@ -90,7 +90,15 @@ public class Tortue extends Observable {
         setChanged();
         notifyObservers();
     }
-
+    
+    public int getPosX(){
+        return x;
+    }
+    
+    public int getPosY(){
+        return y;
+    }
+    
     public void setPosition(int newX, int newY) {
         x = newX;
         y = newY;
