@@ -2,7 +2,9 @@ package Vue;
 
 import Modele.Segment;
 import Modele.Tortue;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.Iterator;
 
 /*
@@ -16,10 +18,12 @@ import java.util.Iterator;
  * @author Thibaud
  */
 public class VueSuperTortue extends VueTortue {
-    private Tortue tortue;
+
     public VueSuperTortue(Tortue tortue) {
         super(tortue);
     }
+    
+
     
     @Override
     public void drawTurtle(Graphics graph) {
@@ -30,5 +34,10 @@ public class VueSuperTortue extends VueTortue {
             Segment seg = (Segment) it.next();
             seg.drawSegment(graph);
         }
+        Point p = new Point(tortue.getX(),tortue.getY());
+        graph.setColor(Color.green);
+        graph.fillOval(rp, rp, rp, rp);
+        
+         
     }
 }
