@@ -4,6 +4,7 @@ import Modele.Tortue;
 import Vue.VueAleatoire;
 import Vue.VueSuperTortue;
 import Vue.VueTortue;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,10 +48,22 @@ public class ContoleurAleatoire {
 
     }
 
+    public void avancer(Tortue tortue, int v){
+        int posX = tortue.getPosX();
+        int posY = tortue.getPosY();
+        int dir = tortue.getDir();
+        Dimension size = this.vue.getFeuille().getSize();
+        int newX = (int) Math.round(posX + v * Math.cos(dir));
+        int newY = (int) Math.round(posY + v * Math.sin(dir));
+        if (newX > 0 && newY > 0 && newX < size.width && newY < size.height){
+            tortue.avancer(v);
+        }
+    }
+    
     public void tick() {
         for (Tortue tortue : tortues) {
             tortue.setDirection(ThreadLocalRandom.current().nextInt(0, 360));
-            tortue.avancer(ThreadLocalRandom.current().nextInt(0, 150));
+            avancer(tortue, ThreadLocalRandom.current().nextInt(0, 150));
         }
     }
 }
