@@ -25,14 +25,6 @@ public class VueManuel extends JFrame implements Observer{
 
     private JTextField inputValue;
     
-    	public static void main(String[] args) {
-		   SwingUtilities.invokeLater(new Runnable(){
-				public void run(){
-                                        VueManuel fenetre = new VueManuel();
-					fenetre.setVisible(true);
-				}
-			});
-		}
         
     private void quitter() {
         System.exit(0);
@@ -137,7 +129,6 @@ public class VueManuel extends JFrame implements Observer{
         getContentPane().add(p2, "South");
 
         getContentPane().add(feuille, "Center");
-
         pack();
         setVisible(true);
     }

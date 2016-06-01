@@ -42,8 +42,14 @@ public class Tortue extends Observable {
     }
 
     public Tortue() {
-        listSegments = new ArrayList<Segment>();
+        listSegments = new ArrayList<>();
         reset();
+    }
+    
+    public Tortue(int posX, int posY){
+        listSegments = new ArrayList<>();
+        reset(); 
+        setPosition(posX, posY);
     }
 
     public ArrayList<Segment> getListSegments() {

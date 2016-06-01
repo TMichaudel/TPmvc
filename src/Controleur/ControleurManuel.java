@@ -30,7 +30,8 @@ public class ControleurManuel implements KeyListener, ActionListener{
 
     public ControleurManuel(VueManuel vue) {
         this.vue = vue;
-        this.courante=new Tortue();
+        Dimension size = this.vue.getFeuille().getSize();
+        this.courante=new Tortue(size.width / 2, size.height / 2);
         this.vue.getFeuille().addTortue(new VueTortue(courante));
         this.courante.addObserver(this.vue);
     }

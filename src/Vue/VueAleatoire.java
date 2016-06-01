@@ -26,15 +26,6 @@ public class VueAleatoire extends JFrame implements Observer{
     private VueFeuilleDessin feuille;
 
     private JTextField inputValue;
-    
-    	public static void main(String[] args) {
-		   SwingUtilities.invokeLater(new Runnable(){
-				public void run(){
-                                        VueAleatoire fenetre = new VueAleatoire();
-					fenetre.setVisible(true);
-				}
-			});
-		}
         
     private void quitter() {
         System.exit(0);

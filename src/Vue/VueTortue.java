@@ -29,6 +29,10 @@ public class VueTortue {
 		return tortue;
 	}
     
+    public void reset(){
+        tortue.reset();
+    }
+    
     public void drawTurtle(Graphics graph) {
         if (graph == null) {
             return;
