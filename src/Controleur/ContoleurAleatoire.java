@@ -32,7 +32,7 @@ public class ContoleurAleatoire {
             tortue = new Tortue();
             tortue.setColor(ThreadLocalRandom.current().nextInt(0, 12));
             tortues.add(tortue);
-            this.vue.getFeuille().addTortue(new VueTortue(tortue));
+            this.vue.getFeuille().addTortue(new VueSuperTortue(tortue));
             tortue.addObserver(this.vue);
         }
 

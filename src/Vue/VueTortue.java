@@ -19,7 +19,7 @@ import java.util.Iterator;
  * @author Thibaud
  */
 public class VueTortue {
-    private Tortue tortue;
+    protected Tortue tortue;
     static final int rp = 10, rb = 5;
     
     public VueTortue(Tortue tortue) {
