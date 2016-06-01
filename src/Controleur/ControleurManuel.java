@@ -6,8 +6,9 @@
 package Controleur;
 
 import Modele.Tortue;
-import Vue.VueManuel;
 import Vue.VueFeuilleDessin;
+import Vue.VueManuel;
+import Vue.VueSuperTortue;
 import Vue.VueTortue;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -32,7 +33,7 @@ public class ControleurManuel implements KeyListener, ActionListener{
         this.vue = vue;
         Dimension size = this.vue.getFeuille().getSize();
         this.courante=new Tortue(size.width / 2, size.height / 2);
-        this.vue.getFeuille().addTortue(new VueTortue(courante));
+        this.vue.getFeuille().addTortue(new VueSuperTortue(courante));
         this.courante.addObserver(this.vue);
     }
 
