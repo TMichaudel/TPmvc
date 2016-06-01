@@ -50,7 +50,7 @@ public class ControleurManuel implements KeyListener, ActionListener{
             if (c.equals("Avancer")) {
                 try {
                     int v = Integer.parseInt(vue.getInputValue());
-                    courante.avancer(v);
+                    avancer(v);
                 } catch (NumberFormatException ex) {
                     System.err.println("ce n'est pas un nombre : " + vue.getInputValue());
                 }
@@ -86,6 +86,17 @@ public class ControleurManuel implements KeyListener, ActionListener{
             } else if (c.equals("Quitter")) {
                 quitter();
             }
+        }
+    }
+    
+    public void avancer(int v){
+        int posX = courante.getPosX();
+        int posY = courante.getPosY();
+        Dimension size = this.vue.getFeuille().getSize();
+        int newX = (int) Math.round(posX + v );
+        int newY = (int) Math.round(posY + v );
+        if (newX > 0 && newY > 0 && newX < size.width && newY < size.height){
+            courante.avancer(v);
         }
     }
     
@@ -129,7 +140,7 @@ public class ControleurManuel implements KeyListener, ActionListener{
             case KeyEvent.VK_UP:
                 try {
                     int v = Integer.parseInt(vue.getInputValue());
-                    courante.avancer(v);
+                    avancer(v);
                 } catch (NumberFormatException ex) {
                     System.err.println("ce n'est pas un nombre : " + vue.getInputValue());
                 }
