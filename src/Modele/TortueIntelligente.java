@@ -1,5 +1,7 @@
 package Modele;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -23,6 +25,15 @@ public class TortueIntelligente extends Tortue {
         angleVue=ANGLE_VUE;
         this.vitesse=vitesse;
         this.dir=direction;
+    }
+    
+    public TortueIntelligente() {
+        super(ThreadLocalRandom.current().nextInt(0, 400),ThreadLocalRandom.current().nextInt(0, 400));
+        distVue=DIST_VUE;
+        angleVue=ANGLE_VUE;
+        vitesse=ThreadLocalRandom.current().nextInt(0, 100);
+        dir=ThreadLocalRandom.current().nextInt(0, 360);
+        
     }
 
     public int getDistVue() {
