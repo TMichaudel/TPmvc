@@ -1,14 +1,10 @@
 package Vue;
 
 // package logo;
-import Controleur.ControleurAleatoire;
-import Controleur.ControleurManuel;
-import Modele.Tortue;
+import Controleur.ControleurFlock;
 import java.awt.*;
 
-
 import java.awt.event.*;
-import java.io.*;
 import java.util.*;
 import javax.swing.*;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
@@ -17,12 +13,12 @@ import static javax.swing.JFrame.EXIT_ON_CLOSE;
  *
  * @author mathieu
  */
-public class VueAleatoire extends JFrame implements Observer{
+public class VueFlock extends JFrame implements Observer{
 
     public static final Dimension VGAP = new Dimension(1, 5);
     public static final Dimension HGAP = new Dimension(5, 1);
 
-    private ControleurAleatoire control;
+    private ControleurFlock control;
     private VueFeuilleDessin feuille;
 
     private JTextField inputValue;
@@ -41,10 +37,10 @@ public class VueAleatoire extends JFrame implements Observer{
         feuille.setPreferredSize(new Dimension(600, 400));
     }
     
-    public VueAleatoire() {
-        super("Tortues aléatoires");
+    public VueFlock() {
+        super("Tortues flock");
         initFeuille();
-        this.control = new ControleurAleatoire(this);
+        this.control = new ControleurFlock(this);
 
         logoInit();
 

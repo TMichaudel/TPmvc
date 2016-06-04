@@ -18,13 +18,13 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author Thibaud
  */
-public class ContoleurAleatoire {
+public class ControleurAleatoire {
 
     private static int NB_TORTUES = 10;
     private ArrayList<Tortue> tortues;
     private VueAleatoire vue;
 
-    public ContoleurAleatoire(VueAleatoire vue) {
+    public ControleurAleatoire(VueAleatoire vue) {
         Tortue tortue;
         this.vue = vue;
         tortues = new ArrayList();
@@ -43,7 +43,7 @@ public class ContoleurAleatoire {
         }
 
         Timer timer = new Timer();
-        timer.schedule(new next(), 0, 1000);
+        timer.schedule(new next(), 0, 500);
 
     }
 
