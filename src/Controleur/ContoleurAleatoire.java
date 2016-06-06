@@ -44,7 +44,7 @@ public class ContoleurAleatoire {
         }
 
         Timer timer = new Timer();
-        timer.schedule(new next(), 0, 1000);
+        timer.schedule(new next(), 0, 100);
 
     }
 
@@ -55,15 +55,21 @@ public class ContoleurAleatoire {
         Dimension size = this.vue.getFeuille().getSize();
         int newX = (int) Math.round(posX + v * Math.cos(dir));
         int newY = (int) Math.round(posY + v * Math.sin(dir));
-        if (newX > 0 && newY > 0 && newX < size.width && newY < size.height){
+        /*if (newX > 0 && newY > 0 && newX < size.width && newY < size.height){
             tortue.avancer(v);
         }
+        else {*/
+            tortue.avancer(v);
+            if (newX < 0) tortue.setPosition(size.width + newX, newY);
+            if (newY < 0) tortue.setPosition(newX, newY + size.height);
+            if (newX > size.width) tortue.setPosition(newX-size.width, newY);
+            if (newY > size.height) tortue.setPosition(newX, newY-size.height);
     }
     
     public void tick() {
         for (Tortue tortue : tortues) {
             tortue.setDirection(ThreadLocalRandom.current().nextInt(0, 360));
-            avancer(tortue, ThreadLocalRandom.current().nextInt(0, 150));
+            avancer(tortue, ThreadLocalRandom.current().nextInt(0, 50));
         }
     }
 }
