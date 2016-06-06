@@ -4,6 +4,7 @@ import Modele.Tortue;
 import Vue.VueAleatoire;
 import Vue.VueSuperTortue;
 import Vue.VueTortue;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -21,6 +22,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ControleurAleatoire {
 
     private static int NB_TORTUES = 10;
+    private static int TPS_REFRESH = 500;
     private ArrayList<Tortue> tortues;
     private VueAleatoire vue;
 
@@ -44,14 +46,37 @@ public class ControleurAleatoire {
         }
 
         Timer timer = new Timer();
-        timer.schedule(new next(), 0, 500);
+        timer.schedule(new next(), 0, TPS_REFRESH);
 
     }
+    
+    public void avancerToroidal(Tortue tortue, int v) {
+        int posX = tortue.getPosX();
+        int posY = tortue.getPosY();
+        int dir = tortue.getDir();
+        Dimension size = this.vue.getFeuille().getSize();
+        int newX = (int) Math.round(posX + v * Math.cos(dir*0.0174533));
+        int newY = (int) Math.round(posY + v * Math.sin(dir*0.0174533));
 
+        tortue.avancer(v);
+        if (newX < 0) {
+            tortue.setPosition(size.width + newX, newY);
+        }
+        if (newY < 0) {
+            tortue.setPosition(newX, newY + size.height);
+        }
+        if (newX > size.width) {
+            tortue.setPosition(newX - size.width, newY);
+        }
+        if (newY > size.height) {
+            tortue.setPosition(newX, newY - size.height);
+        }
+    }
+    
     public void tick() {
         for (Tortue tortue : tortues) {
             tortue.setDirection(ThreadLocalRandom.current().nextInt(0, 360));
-            tortue.avancer(ThreadLocalRandom.current().nextInt(0, 150));
+            avancerToroidal(tortue, ThreadLocalRandom.current().nextInt(0, 50));
         }
     }
 }

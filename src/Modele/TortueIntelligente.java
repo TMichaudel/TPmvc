@@ -14,8 +14,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class TortueIntelligente extends Tortue {
 
-    private static int DIST_VUE = 150;
-    private static int ANGLE_VUE = 60;
+    private static int DIST_VUE = 300;
+    private static int ANGLE_VUE = 90;
     private int distVue;
     private int angleVue;
     private int vitesse;
@@ -56,28 +56,21 @@ public class TortueIntelligente extends Tortue {
             int newX = tortueAVoir.x - this.x;
             int newY = tortueAVoir.y - this.y;
             double distance2 = Math.abs(newY);
-            System.out.println(distance + " " + distance2);
             double angleRad = Math.cos(distance / distance2);
-            System.out.println(angleRad);
             int angle;
             if (newX < 0) {
                 if (newY < 0) {
-                    System.out.println("a");
                     angle = 90 + (int) Math.round(angleRad * 180 / Math.PI);
                 } else {
-                    System.out.println("b");
                     angle = 270 - (int) Math.round(angleRad * 180 / Math.PI);
                 }
             } else {
                 if (newY < 0) {
-                    System.out.println("c");
                     angle = 90 - (int) Math.round(angleRad * 180 / Math.PI);
                 } else {
-                    System.out.println("d");
                     angle = 270 + (int) Math.round(angleRad * 180 / Math.PI);
                 }
             }
-            System.out.println(angle);
             if ((angle < this.dir + this.angleVue / 2) && (angle > this.dir - this.angleVue / 2)) {
                 enVue = true;
             }
