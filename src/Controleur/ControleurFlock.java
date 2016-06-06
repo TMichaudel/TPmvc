@@ -49,7 +49,7 @@ public class ControleurFlock {
 
     }
 
-    public void avancer(Tortue tortue, int v) {
+    public void avancerToroidal(Tortue tortue, int v) {
         int posX = tortue.getPosX();
         int posY = tortue.getPosY();
         int dir = tortue.getDir();
@@ -75,7 +75,7 @@ public class ControleurFlock {
     public void tick() {
         for (TortueIntelligente tortue : tortues) {
             tortue.regarderEnvirons(tortues);
-            avancer(tortue, tortue.getVitesse());
+            avancerToroidal(tortue, tortue.getVitesse());
         }
     }
 }

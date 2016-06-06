@@ -49,7 +49,7 @@ public class ContoleurAleatoire {
 
     }
 
-    public void avancer(Tortue tortue, int v) {
+    public void avancerToroidal(Tortue tortue, int v) {
         int posX = tortue.getPosX();
         int posY = tortue.getPosY();
         int dir = tortue.getDir();
@@ -75,7 +75,7 @@ public class ContoleurAleatoire {
     public void tick() {
         for (Tortue tortue : tortues) {
             tortue.setDirection(ThreadLocalRandom.current().nextInt(0, 360));
-            avancer(tortue, ThreadLocalRandom.current().nextInt(0, 50));
+            avancerToroidal(tortue, ThreadLocalRandom.current().nextInt(0, 50));
         }
     }
 }
