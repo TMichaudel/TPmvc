@@ -63,7 +63,7 @@ public class VueManuel extends JFrame implements Observer{
         JToolBar toolBar = new JToolBar();
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(toolBar);
-
+        toolBar.addKeyListener(control);
         getContentPane().add(buttonPanel, "North");
 
         addButton(toolBar, "Effacer", "Nouveau dessin", "/icons/index.png");

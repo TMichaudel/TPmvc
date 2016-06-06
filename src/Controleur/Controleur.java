@@ -2,6 +2,7 @@ package Controleur;
 
 import Vue.Vue;
 import Vue.VueAleatoire;
+import Vue.VueFlock;
 import Vue.VueManuel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,8 +32,13 @@ public class Controleur implements ActionListener {
             fenetre.setVisible(true);
         }
         
-        else if (c.equals("Random, the turtles")) {
+        else if (c.equals("Random, the stupid turtles")) {
             VueAleatoire fenetre = new VueAleatoire();
+            fenetre.setVisible(true);
+       }
+        
+       else if (c.equals("Flocking, the clever turtles")) {
+            VueFlock fenetre = new VueFlock();
             fenetre.setVisible(true);
        }
         vue.dispose();

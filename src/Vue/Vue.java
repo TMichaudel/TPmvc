@@ -32,20 +32,16 @@ public class Vue extends JFrame {
     public static final Dimension HGAP = new Dimension(5, 1);
 
     private Controleur control;
-    
+
     public static void main(String[] args) {
-		  // SwingUtilities.invokeLater(new Runnable(){
-		//		public void run(){
-                                        Vue fenetre = new Vue();
-					fenetre.setVisible(true);
-				}
-			//});
-		//}
-    
+        Vue fenetre = new Vue();
+        fenetre.setVisible(true);
+    }
+
     private void quitter() {
         System.exit(0);
     }
-    
+
     public Vue() {
         super("Choose wisely");
         this.control = new Controleur(this);
@@ -60,21 +56,24 @@ public class Vue extends JFrame {
             }
         });
     }
-    
-    public void initWindow(){
+
+    public void initWindow() {
         getContentPane().setLayout(new BorderLayout(10, 10));
         JPanel buttonPanel = new JPanel(new GridLayout());
         JButton bmanuel = new JButton("Manuela, la tortuga");
-        JButton bAlea = new JButton("Random, the turtles");
+        JButton bAlea = new JButton("Random, the stupid turtles");
+        JButton bFlock = new JButton("Flocking, the clever turtles");
         buttonPanel.add(bmanuel);
         bmanuel.addActionListener(control);
         buttonPanel.add(bAlea);
         bAlea.addActionListener(control);
+        buttonPanel.add(bFlock);
+        bFlock.addActionListener(control);
         getContentPane().add(buttonPanel);
         pack();
         setVisible(true);
     }
-    
+
     //utilitaires pour installer des boutons et des menus
     public void addButton(JComponent p, String name, String tooltiptext, String imageName) {
         JButton b;
